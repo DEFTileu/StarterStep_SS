@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile - StarterStep</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        /* Reset and Fonts */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #4f46e5, #38a169);
+            color: white;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0 auto; /* Центрирует текст */
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background: #38a169;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background: #2d8453;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #4f46e5;
+        }
+
+        .profile-header h2 {
+            font-size: 2rem;
+            margin: 15px 0 10px;
+            color: #4f46e5;
+        }
+
+        .profile-header p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .career-score {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .career-score h3 {
+            font-size: 1.5rem;
+            color: #4f46e5;
+        }
+
+        .career-score .score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .details {
+            margin-top: 20px;
+        }
+
+        .section {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h4 {
+            font-size: 1.3rem;
+            color: #4f46e5;
+            margin-bottom: 15px;
+        }
+
+        .section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .section ul li {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .edit-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.2rem;
+            color: white;
+            background: linear-gradient(135deg, #4f46e5, #38a169);
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .edit-button:hover {
+            background: linear-gradient(135deg, #3b4dcf, #2c7c54);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
+            color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <a href="#" class="back-button">Back</a>
+    <h1>Welcome, {{ user.name|default:"..." }}</h1>
+</header>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <img src="https://via.placeholder.com/120" alt="Profile Picture">
+        <h2>{{ user.name|default:"..." }}</h2>
+        <p>University: {{ profile.university|default:"..." }}</p>
+        <p>GPA: {{ profile.gpa|default:"..." }}</p>
+    </div>
+
+    <div class="career-score">
+        <h3>Career Score</h3>
+        <p class="score">{{ profile.career_score|default:"..." }}</p>
+    </div>
+
+    <div class="details">
+        <div class="section">
+            <h4>Achievements</h4>
+            <ul>
+                {% if profile.achievements %}
+                    {% for achievement in profile.achievements %}
+                        <li>{{ achievement }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>...</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="section">
+            <h4>Skills</h4>
+            <ul>
+                {% if profile.skills %}
+                    {% for skill in profile.skills %}
+                        <li>{{ skill }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>...</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <a href="{% url 'edit_profile' %}" class="edit-button">Edit Profile</a>
+</div>
+
+
+    <footer>
+        <p>&copy; 2024 StarterStep. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

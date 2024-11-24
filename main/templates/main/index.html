@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StarterStep - Empowering Careers</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+     
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(135deg, #4f46e5, #38a169);
+        color: white;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* Header */
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 40px;
+        background: rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .logo {
+        font-size: 2rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: white;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      nav .nav-button {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+
+      nav .nav-button:hover {
+        background: rgba(255, 255, 255, 0.5);
+        color: #4f46e5;
+      }
+
+      .btn-register {
+        background: linear-gradient(135deg, #38a169, #5bc27a);
+        color: white;
+        font-weight: 700;
+      }
+
+      .btn-register:hover {
+        background: white;
+        color: #38a169;
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        padding: 80px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        flex-grow: 1;
+      }
+
+      .hero-text {
+        max-width: 500px;
+      }
+
+      .hero h2 {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+        color: #f1f1f1;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        color: #ddd;
+      }
+
+      .hero .cta-button {
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 1rem;
+        color: white;
+        background: #38a169;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+
+      .hero .cta-button:hover {
+        background: white;
+        color: #38a169;
+        transform: scale(1.1);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+     .hero img {
+    max-width: 600px; 
+    height: auto; 
+    border-radius: 15px; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); 
+}
+      .section {
+            padding: 60px 20px;
+            text-align: center;
+            background: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin: 30px auto;
+            max-width: 1200px;
+        }
+        .section h2 {
+            font-size: 2.4rem;
+            color: #4f46e5;
+            margin-bottom: 20px;
+        }
+
+        .section p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #38a169;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        font-size: 0.9rem;
+        margin-top: auto;
+      }
+
+      footer p {
+        color: #f1f1f1;
+      }
+
+      footer a {
+        color: #38a169;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <a href="{% url 'home' %}" class="logo">StarterStep</a>
+      <nav>
+        <a href="{% url 'home' %}" class="nav-button">Home</a>
+        <a href="{%url 'job_list' %}" class="nav-button">View Vacancies</a>
+        <a href="{% url 'about' %}" class="nav-button">About</a>
+        <a href="{% url 'reg' %}" class="btn-register nav-button">Sign In/Log In</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-text">
+        <h2>Do First Step To Your Dream Job</h2>
+        <p>
+          Empowering students by connecting their academic achievements with
+          career opportunities.
+        </p>
+        <a href="#" class="cta-button">Learn More</a>
+      </div>
+      <img src="https://t3.ftcdn.net/jpg/03/68/74/56/360_F_368745661_TyhVZ2HhoQS1Fcr0ZEOvRcgluSIpNmzh.jpg" alt="Success Image" />
+    </section>
+     <section id="students" class="section">
+        <h2>Benefits for Students</h2>
+        <p>StarterStep is your gateway to academic growth and career opportunities.</p>
+        <div class="cards">
+            <div class="card">
+                <h3>Track Progress</h3>
+                <p>Monitor your GPA and achievements to showcase your potential.</p>
+            </div>
+            <div class="card">
+                <h3>Personalized Jobs</h3>
+                <p>Get job recommendations tailored to your skills and education.</p>
+            </div>
+            <div class="card">
+                <h3>Career Growth</h3>
+                <p>Unlock opportunities with tools to enhance your career profile.</p>
+            </div>
+        </div>
+    </section>
+    <section id="employers" class="section">
+        <h2>Benefits for Employers</h2>
+        <p>StarterStep simplifies your hiring process and connects you with top talent.</p>
+        <div class="cards">
+            <div class="card">
+                <h3>Top Talent</h3>
+                <p>Access a pool of highly motivated and skilled students.</p>
+            </div>
+            <div class="card">
+                <h3>Smart Filtering</h3>
+                <p>Find the perfect candidates based on GPA, skills, and Career Score.</p>
+            </div>
+            <div class="card">
+                <h3>Efficient Hiring</h3>
+                <p>Post jobs and connect with potential hires seamlessly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2024 StarterStep. All rights reserved. <br />
+        Need help? <a href="/contact/">Contact Us</a>
+      </p>
+    </footer>
+  </body>
+</html>

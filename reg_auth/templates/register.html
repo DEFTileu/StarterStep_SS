@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - StarterStep</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #6366F1, #34D399);
+            color: #111827;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .left {
+            background: #6366F1;
+            color: white;
+            flex: 1;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .left h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .left p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .left button {
+            background: #34D399;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .left button:hover {
+            background: white;
+            color: #34D399;
+        }
+
+        .right {
+            flex: 1.5;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-toggle {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .form-toggle button {
+            flex: 1;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            background: #F3F4F6;
+            border: none;
+            border-radius: 8px;
+            margin: 0 10px;
+            color: #6366F1;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .form-toggle button.active {
+            background: #6366F1;
+            color: white;
+        }
+
+        .form {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form.active {
+            display: flex;
+        }
+
+        .form label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form input, .form select {
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .form button {
+            background: #6366F1;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .form button:hover {
+            background: #4F46E5;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Левая часть -->
+        <div class="left">
+            <h1>Welcome to StarterStep</h1>
+            <p>Your career starts here. Register or log in to explore opportunities.</p>
+            <button onclick="toggleForm('register')">Get Started</button>
+        </div>
+
+        <!-- Правая часть -->
+        <div class="right">
+            <div class="form-toggle">
+                <button id="registerBtn" class="active" onclick="toggleForm('register')">Register</button>
+                <button id="loginBtn" onclick="toggleForm('login')">Login</button>
+            </div>
+
+            <!-- Ошибки -->
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <!-- Регистрация -->
+            <form id="registerForm" class="form active" method="POST">
+                {% csrf_token %}
+                <label for="name">Name</label>
+                <input type="text" id="id_name" name="name" placeholder="Enter your name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="id_email" name="email" placeholder="Enter your email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="id_password" name="password" placeholder="Enter your password" required>
+
+                <label for="role">I am a:</label>
+                <select id="id_role" name="role" required>
+                    <option value="">Select...</option>
+                    <option value="student">Student</option>
+                    <option value="employer">Employer</option>
+                </select>
+
+                <button type="submit" name="register">Register</button>
+            </form>
+
+            <!-- Авторизация -->
+            <form id="loginForm" class="form" method="POST">
+                {% csrf_token %}
+                <label for="email-login">Email</label>
+                <input type="email" id="email-login" name="email-login" placeholder="Enter your email" required>
+            
+                <label for="password-login">Password</label>
+                <input type="password" id="password-login" name="password-login" placeholder="Enter your password" required>
+            
+                <button type="submit" name="login">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm(formType) {
+            const registerForm = document.getElementById('registerForm');
+            const loginForm = document.getElementById('loginForm');
+            const registerBtn = document.getElementById('registerBtn');
+            const loginBtn = document.getElementById('loginBtn');
+
+            if (formType === 'register') {
+                registerForm.classList.add('active');
+                loginForm.classList.remove('active');
+                registerBtn.classList.add('active');
+                loginBtn.classList.remove('active');
+            } else {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+                loginBtn.classList.add('active');
+                registerBtn.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job List - StarterStep</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #4f46e5, #38a169);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .job-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .job-list li {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background: #f8f8f8;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .job-list li:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4f46e5;
+            text-decoration: none;
+        }
+
+        .job-title:hover {
+            text-decoration: underline;
+        }
+
+        .job-meta {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+
+        footer {
+            
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            color: #f1f1f1;
+            
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Available Jobs</h1>
+    </header>
+
+    <div class="container">
+        <ul class="job-list">
+            {% for job in jobs %}
+                <li>
+                    <div>
+                        <a href="{% url 'job_detail' job.id %}" class="job-title">{{ job.title }}</a>
+                        <p class="job-meta">{{ job.location }} (Posted: {{ job.posted_at|date:"M d, Y" }})</p>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No jobs available at the moment.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer class="page-footer" role="contentinfo">
+        <p>&copy; 2024 StarterStep. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

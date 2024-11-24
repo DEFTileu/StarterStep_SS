@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Job</title>
+    <style>
+        /* Общий стиль */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4f46e5, #38a169);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #38a169;
+            color: #fff;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #2d7d4f;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #4f46e5;
+            font-size: 0.9rem;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Create a Job</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <p>
+                <label for="id_title">Job Title:</label>
+                <input type="text" name="title" id="id_title" placeholder="Enter the job title">
+            </p>
+
+            <p>
+                <label for="id_description">Description:</label>
+                <textarea name="description" id="id_description" rows="5" placeholder="Enter job description"></textarea>
+            </p>
+
+            <p>
+                <label for="id_location">Location:</label>
+                <input type="text" name="location" id="id_location" placeholder="City or remote">
+            </p>
+
+            <p>
+                <label for="id_salary">Salary:</label>
+                <input type="number" name="salary" id="id_salary" placeholder="Enter salary (optional)">
+            </p>
+
+            <button type="submit">Post Job</button>
+        </form>
+        <a href="{% url 'job_list' %}">Cancel</a>
+    </div>
+</body>
+</html>
